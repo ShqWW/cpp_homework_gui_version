@@ -8,6 +8,7 @@
 #include <QTextCodec> 
 #include <QShortcut>
 #include <QString>
+#include <QIcon>
 class calculator_gui : public QWidget, private calculator_shell
 {
 	Q_OBJECT

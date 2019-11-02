@@ -7,6 +7,7 @@ calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 	setMaximumSize(16777215,16777215);
 	setMinimumSize(800, 500);
 	setWindowTitle(codec->toUnicode("ÆÆÄæ×Ó"));
+	setWindowIcon(QIcon("./Calculator.ico"));
 	set_lineedit();
 	set_button();
 }
