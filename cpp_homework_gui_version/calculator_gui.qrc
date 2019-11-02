@@ -1,0 +1,4 @@
+<RCC>
+    <qresource prefix="calculator_gui">
+    </qresource>
+</RCC>

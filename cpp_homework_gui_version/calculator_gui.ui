@@ -1,0 +1,25 @@
+<UI version="4.0" >
+ <class>calculator_guiClass</class>
+ <widget class="QWidget" name="calculator_guiClass" >
+  <property name="objectName" >
+   <string notr="true">calculator_guiClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>600</width>
+	<height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>calculator_gui</string>
+  </property>
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="calculator_gui.qrc"/>
+ </resources>
+ <connections/>
+</UI>
