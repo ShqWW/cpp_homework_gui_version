@@ -1,14 +1,14 @@
 #include "calculator_gui.h"
 #include <string>
 //using namespace std;
+
 calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 {
 	setMaximumSize(16777215,16777215);
 	setMinimumSize(800, 500);
-	setWindowTitle("pnz");
+	setWindowTitle(codec->toUnicode("ÆÆÄæ×Ó"));
 	set_lineedit();
 	set_button();
-	//b->setEnabled(false);
 }
 
 void calculator_gui::get_input(string s)
@@ -22,11 +22,12 @@ string calculator_gui::calculate()
 		inver_expression();
 		return cal_outcome();
 	}
-	catch (string e)
+	catch (string error)
 	{
-		throw(e);
+		throw(error);
 	}
 }
+
 void calculator_gui::set_lineedit()
 {
 	input = new QLineEdit(this);
