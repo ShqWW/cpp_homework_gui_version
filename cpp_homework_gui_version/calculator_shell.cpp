@@ -8,7 +8,7 @@ calculator_shell::calculator_shell()
 {
 	this->expression == "";
 	this->Ans = "";
-	fun_list = { 
+	fun_list = {
 		{ "sqrt",&calculator_shell::cal_sqrt} ,
 		{ "cos",&calculator_shell::cal_cos} ,
 		{ "sin",&calculator_shell::cal_sin} ,
@@ -25,7 +25,7 @@ calculator_shell::calculator_shell()
 		{ "lg",&calculator_shell::cal_lg} ,
 		{ "ln",&calculator_shell::cal_ln} ,
 		{ "abs",&calculator_shell::cal_abs},
-	    { "!",&calculator_shell::cal_factor},
+		{ "!",&calculator_shell::cal_factor},
 		{ "%",&calculator_shell::cal_percen} };
 	cal_list = {
 		{ "+",&calculator_shell::cal_add} ,
@@ -47,7 +47,7 @@ calculator_shell::calculator_shell()
 		{"pi",3.1415926535897932384626433833} ,
 		{"ans",0}
 	};
-		
+
 	//cout << (this->*fun_list["!"])(5.1-0.1) << endl;//use method
 }
 void calculator_shell::get_expression(string s)
@@ -57,19 +57,20 @@ void calculator_shell::get_expression(string s)
 void calculator_shell::inver_expression()
 {
 	this->restart();
-	string::iterator expr_index= expression.begin();
+	string::iterator expr_index = expression.begin();
 	string::iterator expr_index_end = expression.end();
 	string num_adfun = "";
 	string curr_symbol = "?";
-	bool dot=0;
+	bool dot = 0;
+	bool is_num = 0;
 	while (expr_index != expr_index_end)
-	{   
-	
+	{
+
 		if (*expr_index >= '0' && *expr_index <= '9')
 		{
-			while(expr_index != expr_index_end &&
+			while (expr_index != expr_index_end &&
 				((*expr_index >= '0' && *expr_index <= '9')
-					|| *expr_index == '.') )
+					|| *expr_index == '.'))
 			{
 				if (*expr_index == '.' && dot)
 				{
@@ -83,12 +84,13 @@ void calculator_shell::inver_expression()
 			}
 			dot = 0;
 			expr_index--;
+			is_num = 1;
 			postfix_expression.push_back(num_adfun);
 			num_adfun = "";
 		}
 		else if (*expr_index >= 'a' && *expr_index <= 'z')
 		{
-			while (expr_index != expr_index_end &&*expr_index >= 'a' && *expr_index <= 'z')
+			while (expr_index != expr_index_end && *expr_index >= 'a' && *expr_index <= 'z')
 			{
 				num_adfun.push_back(*expr_index);
 				expr_index++;
@@ -97,29 +99,33 @@ void calculator_shell::inver_expression()
 			{
 				postfix_expression.push_back(num_adfun);
 				num_adfun = "";
+				is_num = 1;
 				continue;
 			}
-			if (symbol_prio.find(num_adfun) == symbol_prio.end())
+			if (fun_list.find(num_adfun) == fun_list.end())
 			{
+				cout << num_adfun << endl;
 				string e = "illegal input";
 				throw e;
 			}
 			expr_index--;
-			while((!symbol.empty()) && symbol.back() !="(" && symbol_prio["adfun"]>= symbol_prio[symbol.back()])
-			{ 
+			while ((!symbol.empty()) && symbol.back() != "(" && symbol_prio["adfun"] >= symbol_prio[symbol.back()])
+			{
 				postfix_expression.push_back(symbol.back());
 				symbol.pop_back();
 			}
 			symbol.push_back(num_adfun);
 			num_adfun = "";
+			is_num = 0;
 		}
 		else if (*expr_index == '(')
 		{
 			symbol.push_back("(");
+			is_num = 0;
 		}
 		else if (*expr_index == ')')
 		{
-			while (!symbol.empty()&&symbol.back() != "(")
+			while (!symbol.empty() && symbol.back() != "(")
 			{
 				postfix_expression.push_back(symbol.back());
 				symbol.pop_back();
@@ -139,19 +145,27 @@ void calculator_shell::inver_expression()
 				string e = "illegal input";
 				throw e;
 			}
+			if ((!is_num) && (curr_symbol == "+" || curr_symbol == "-"))
+			{
+				postfix_expression.push_back("0");
+				is_num = 0;
+			}
 			else
+			{
 				while ((!symbol.empty()) && symbol.back() != "(" && symbol_prio[curr_symbol] >= symbol_prio[symbol.back()])
 				{
 					postfix_expression.push_back(symbol.back());
 					symbol.pop_back();
 				}
-				symbol.push_back(curr_symbol);
+			}
+			symbol.push_back(curr_symbol);
+			is_num = 0;
 		}
 		expr_index++;
 	}
 	while (!symbol.empty())
 	{
-		if(symbol.back()=="(")
+		if (symbol.back() == "(")
 		{
 			string e = "parentheses unmatched";
 			throw e;
@@ -162,6 +176,7 @@ void calculator_shell::inver_expression()
 			symbol.pop_back();
 		}
 	}
+	output_inver_expression();
 }
 string calculator_shell::cal_outcome()
 {
@@ -215,19 +230,7 @@ string calculator_shell::cal_outcome()
 				num_curr = number.back();
 				number.pop_back();
 			}
-			if (number.empty() && (s == "+" || s == "-"))
-			{
-				try
-				{
-					num_curr = (this->*cal_list[s])(0, num_curr);
-					number.push_back(num_curr);
-				}
-				catch (string e)
-				{
-					throw(e);
-				}
-			}
-			else if (number.empty())
+			if (number.empty())
 			{
 				string e = "illegal input";
 				throw e;
@@ -312,7 +315,7 @@ long double calculator_shell::cal_pow(long double x, long double y)
 {
 	return pow(x, y);
 }
-long double calculator_shell::cal_ln(long double input) 
+long double calculator_shell::cal_ln(long double input)
 {
 	if (input <= 0)
 	{
@@ -322,16 +325,16 @@ long double calculator_shell::cal_ln(long double input)
 	long double answer = log(input);
 	return answer;
 }
-long double calculator_shell::cal_lg(long double input) 
+long double calculator_shell::cal_lg(long double input)
 {
 	if (input <= 0) {
-		string e= "invalid input for function lg";
+		string e = "invalid input for function lg";
 		throw e;
 	}
 	long double answer = log10(input);
 	return answer;
 }
-long double calculator_shell::cal_sqrt(long double input) 
+long double calculator_shell::cal_sqrt(long double input)
 {
 	if (input < 0)
 	{
@@ -346,7 +349,7 @@ long double calculator_shell::cal_abs(long double input)
 	long double answer = abs(input);
 	return answer;
 }
-long double calculator_shell::cal_sin(long double input) 
+long double calculator_shell::cal_sin(long double input)
 {
 	long double answer = sin(input);
 	return answer;
@@ -376,7 +379,7 @@ long double calculator_shell::cal_tanh(long double input)
 	long double answer = tanh(input);
 	return answer;
 }
-long double calculator_shell::cal_arcsin(long double input) 
+long double calculator_shell::cal_arcsin(long double input)
 {
 	if (input < -1 || input > 1)
 	{
@@ -386,7 +389,7 @@ long double calculator_shell::cal_arcsin(long double input)
 	long double answer = asin(input);
 	return answer;
 }
-long double calculator_shell::cal_arccos(long double input) 
+long double calculator_shell::cal_arccos(long double input)
 {
 	if (input < -1 || input > 1)
 	{
@@ -396,7 +399,7 @@ long double calculator_shell::cal_arccos(long double input)
 	long double answer = acos(input);
 	return answer;
 }
-long double calculator_shell::cal_arctan(long double input) 
+long double calculator_shell::cal_arctan(long double input)
 {
 	long double answer = atan(input);
 	return answer;
@@ -410,34 +413,34 @@ long double calculator_shell::cal_arccosh(long double input)
 {
 	if (input < 1)
 	{
-	string e = "invalid input for funtion arccosh";
-	throw e;
+		string e = "invalid input for funtion arccosh";
+		throw e;
 	}
 	long double answer = acosh(input);
 	return answer;
 }
-long double calculator_shell::cal_arctanh(long double input) 
+long double calculator_shell::cal_arctanh(long double input)
 {
 	if (input <= -1 || input >= 1)
 	{
 		string e = "invalid input for funtion arctanh";
 		throw e;
 	}
-		
+
 	long double answer = atanh(input);
 	return answer;
 }
-long double calculator_shell::cal_factor(long double input) 
+long double calculator_shell::cal_factor(long double input)
 {
 	long max = input;
-	long double answer=1;
+	long double answer = 1;
 	if (max == 0)
 		return 1;
 	if ((input - max) != 0 || max < 0)
 	{
 		string e = "invalid input for funtion factor";
 		throw e;
-	}	
+	}
 	else
 		for (int i = 1; i < max + 1; i++)
 			answer = answer * i;
@@ -445,7 +448,7 @@ long double calculator_shell::cal_factor(long double input)
 }
 long double calculator_shell::cal_percen(long double input)
 {
-	long double answer = input*0.01;
+	long double answer = input * 0.01;
 	return answer;
 }
 
