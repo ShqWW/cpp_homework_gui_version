@@ -7,7 +7,8 @@
 calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 {
 	//setMaximumSize(16777215,16777215);
-	setMinimumSize(800, 500);
+	setMaximumSize(1000, 630);
+	setMinimumSize(1000, 630);
 	setWindowTitle(codec->toUnicode("¿ÆÑ§¼ÆËãÆ÷"));
 	setWindowIcon(QIcon("./Calculator.ico"));
 	setStyleSheet("background-color: rgb(30, 30, 30)");
