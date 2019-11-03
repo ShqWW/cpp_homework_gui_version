@@ -95,35 +95,43 @@ void calculator_gui::set_button()
 			if (btn->text() == "=")
 			{
 				key = new QShortcut(QKeySequence(Qt::Key_Return), this);
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(disp_outcome()));
+				connect(key, SIGNAL(activated()), this, SLOT(disp_outcome()));
+				key = new QShortcut(QKeySequence(Qt::Key_Enter), this);
+				connect(key, SIGNAL(activated()), this, SLOT(disp_outcome()));
 				connect(btn, SIGNAL(clicked()), this, SLOT(disp_outcome()));
 			}
 			else
 				connect(btn, SIGNAL(clicked()), this, SLOT(btn_input()));
-			if(btn->text() != "="&& btn->text() != "del"&&btn->text() != "pi"&& btn->text() != "ans")
+			if(btn->text() != "="&&btn->text() != "pi"&& btn->text() != "ans")
 			{ 
 				key = new QShortcut(QKeySequence(btn->text()), this);
 				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
-			}
-			else if (btn->text() == "del")
-			{
-				key = new QShortcut(QKeySequence("Backspace"), this);
-				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
-				key = new QShortcut(QKeySequence("Delete"), this);
-				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
+				connect(key, SIGNAL(activated()), this, SLOT(key_input()));
 			}
 		}
 	//confirm->setText(codec->toUnicode("¼ÆËã"));
 	btn = new QPushButton(this);
 	btn->setFont(font);
 	btn->setText("AC");
-	btn->resize(140, 90);
-	btn->move(684, 250);
+	btn->resize(btn_wid, btn_hei);
+	btn->move(684, 230);
 	btn->setStyleSheet(btn_set);
 	connect(btn, SIGNAL(clicked()), this, SLOT(clr_sc()));
+
+	btn = new QPushButton(this);
+	btn->setFont(font);
+	btn->setText("del");
+	btn->resize(btn_wid, btn_hei);
+	btn->move(684, 230+ btn_hei);
+	btn->setStyleSheet(btn_set);
+	connect(btn, SIGNAL(clicked()), this, SLOT(btn_input()));
+	key = new QShortcut(QKeySequence("Backspace"), this);
+	key->setObjectName(btn->text());
+	connect(key, SIGNAL(activated()), this, SLOT(key_input()));
+	key = new QShortcut(QKeySequence("Delete"), this);
+	key->setObjectName(btn->text());
+	connect(key, SIGNAL(activated()), this, SLOT(key_input()));
+	
 }
 void calculator_gui::disp_outcome()
 {
@@ -168,18 +176,17 @@ void calculator_gui::btn_input()
 {
 	QPushButton* btn = dynamic_cast<QPushButton*>(sender());
 	QString s = btn->text();
+	if (s == "del" && !input_str.empty())
+		input_str.pop_back();
+	else if (s == "del" && input_str.empty())
+		return;
 	if (std::find(btn_fun_name.begin(), btn_fun_name.end(), s) != btn_fun_name.end())
 	{
 		input_str.push_back(s + "(");
 	}
 	else if (std::find(btn_num_name.begin(), btn_num_name.end(), s) != btn_num_name.end())
 	{
-		if (s == "del" && !input_str.empty())
-			input_str.pop_back();
-		else if (s == "del" && input_str.empty())
-			return;
-		else
-			input_str.push_back(s);
+		input_str.push_back(s);
 	}
 	std::vector<QString>::iterator index = input_str.begin();
 	input->clear();
@@ -193,18 +200,17 @@ void calculator_gui::key_input()
 {
 	QShortcut* ky = dynamic_cast<QShortcut*>(sender());
 	QString s = ky->objectName();
+	if (s == "del" && !input_str.empty())
+		input_str.pop_back();
+	else if (s == "del" && input_str.empty())
+		return;
 	if (std::find(btn_fun_name.begin(), btn_fun_name.end(), s) != btn_fun_name.end())
 	{
 		input_str.push_back(s + "(");
 	}
 	else if (std::find(btn_num_name.begin(), btn_num_name.end(), s) != btn_num_name.end())
 	{
-		if (s == "del" && !input_str.empty())
-			input_str.pop_back();
-		else if (s == "del" && input_str.empty())
-			return;
-		else
-			input_str.push_back(s);
+		input_str.push_back(s);
 	}
 	std::vector<QString>::iterator index = input_str.begin();
 	input->clear();
@@ -212,7 +218,7 @@ void calculator_gui::key_input()
 	{
 		input->insert(*index);
 		index++;
-	}	
+	}
 }
 void calculator_gui::clr_sc()
 {
