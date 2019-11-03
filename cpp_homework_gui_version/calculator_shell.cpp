@@ -1,8 +1,5 @@
 #include "calculator_shell.h"
 //initialization
-#include<iostream>    //////////////debug           
-using namespace std;//////////////debug
-
 
 calculator_shell::calculator_shell()
 {
@@ -119,7 +116,6 @@ void calculator_shell::inver_expression()
 			}//////////’“ pi e ∫Õans
 			if (fun_list.find(num_adfun) == fun_list.end())
 			{
-				cout << num_adfun << endl;
 				string e = "illegal input";
 				throw e;
 			}
@@ -194,7 +190,6 @@ void calculator_shell::inver_expression()
 			symbol.pop_back();
 		}
 	}
-	output_inver_expression();
 }
 string calculator_shell::cal_outcome()
 {
@@ -285,18 +280,6 @@ string calculator_shell::cal_outcome()
 		return Ans;
 	}
 }
-
-void calculator_shell::output_inver_expression()
-{
-	int k = postfix_expression.size();
-	for (int i = 0; i < k; i++)
-	{
-		cout << postfix_expression[i] << " ";
-	}
-	cout << endl;
-}
-//////////////debug
-
 
 void calculator_shell::restart()
 {

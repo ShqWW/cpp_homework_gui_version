@@ -15,7 +15,6 @@ public:
 	//handle the arithmetical expression
 	void get_expression(string);// get the original expression
 	void inver_expression();//transfer the original expression to postfix expression
-	void output_inver_expression();
 	string cal_outcome();//calculate the posrfix expression
 
 private:

@@ -1,8 +1,4 @@
 #include "calculator_gui.h"
-#include <string>
-#include <QApplication>
-#include <algorithm>
-//using namespace std;
 
 calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 {
@@ -24,23 +20,6 @@ calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 	image->setPixmap(px);
 	image->resize(140, 140);
 	image->move(860,210);
-}
-
-void calculator_gui::get_input(string s)
-{
-	get_expression(s);
-}
-string calculator_gui::calculate()
-{
-	try
-	{
-		inver_expression();
-		return cal_outcome();
-	}
-	catch (string error)
-	{
-		throw(error);
-	}
 }
 
 void calculator_gui::set_lineedit()
@@ -173,7 +152,8 @@ void calculator_gui::get_outcome()
 		try
 		{
 			get_expression(s.toStdString());
-			s = QString::fromStdString(calculate());
+			inver_expression();
+			s = QString::fromStdString(cal_outcome());
 			error_msg->clear();
 			output->setText(s);
 		}
