@@ -12,19 +12,19 @@
 #include <vector>
 #include <algorithm>
 
-class calculator_gui : public QWidget, private calculator_shell
+class calculator_gui : private QWidget, private calculator_shell
 {
 	Q_OBJECT
 
 public:
 	calculator_gui(QWidget* parent = 0);
+	void 叛逆登场();
 
 private:
 	QLineEdit* input;
 	QLineEdit* output;
 	QFont font;
 	QLabel* error_msg;
-	QLabel* image;
 	vector<QString> input_str;
 
 	vector<QString> btn_fun_name = {
@@ -34,14 +34,11 @@ private:
 		"arctanh", "lg", "ln", "abs"
 	};
 	vector<QString> btn_num_name = {
-		"!","1","2","3","+",".",
+		"!","1","2","3","+","^",
 		"%","4","5","6","-","(",
 		"pi","7","8","9","*",")",
-		"e","ans","0","^","/","="
+		"e","ans","0",".","/","="
 	};
-
-	QShortcut* key;//创建一个快捷键"Key_Return"键
-	QTextCodec* codec = QTextCodec::codecForName("GBK");//中文字体管理 
 
 	void set_lineedit();
 	void set_button();

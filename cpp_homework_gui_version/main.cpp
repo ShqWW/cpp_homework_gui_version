@@ -3,8 +3,8 @@
 
 int main(int argc, char* argv[])
 {
-	QApplication app(argc, argv);
-	calculator_gui calculator;
-	calculator.show();
-	return app.exec();
+	QApplication *app=new QApplication(argc, argv);
+	calculator_gui *À±¼¦Äæ×Ó¼ÆËãÆ÷=new calculator_gui;
+    À±¼¦Äæ×Ó¼ÆËãÆ÷->ÅÑÄæµÇ³¡();
+	return app->exec();
 }

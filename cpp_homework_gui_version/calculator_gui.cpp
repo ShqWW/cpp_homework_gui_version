@@ -5,13 +5,14 @@ calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 	//setMaximumSize(16777215,16777215);
 	setMaximumSize(1000, 630);
 	setMinimumSize(1000, 630);
-	setWindowTitle(codec->toUnicode("科学计算器"));
+	QTextCodec* codec = QTextCodec::codecForName("GBK");//中文字体管理
+	setWindowTitle(codec->toUnicode("叛逆型科学计算器"));
 	setWindowIcon(QIcon("./Calculator.ico"));
 	setStyleSheet("background-color: rgb(30, 30, 30)");
 	font.setFamily("Comic Sans MS");
 	set_lineedit();
 	set_button();
-	image = new QLabel(this);
+	QLabel* image = new QLabel(this);
 	QString path = QString("./cal.png");
 	QImage im;
 	im.load(path);
@@ -25,7 +26,7 @@ calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 void calculator_gui::set_lineedit()
 {
 	error_msg = new QLabel(this);
-	error_msg->move(684, 170);
+	error_msg->move(684, 160);
 	error_msg->resize(300, 60);
 	font.setPointSize(12);
 	error_msg->setFont(this->font);
@@ -35,23 +36,17 @@ void calculator_gui::set_lineedit()
 	input->setAlignment(Qt::AlignRight);
 	input->resize(950, 85);
 	input->move(34, 20);
-	input->setStyleSheet(
-		"border-width: 1px;"
+	QString line_set = "border-width: 1px;"
 		"border-radius:5px;"
 		"border-style:solid;"
 		"border-color: rgb(240, 255, 255);"
 		"background-color: rgb(240, 255, 255);"
-		"color:rgb(0,0,0)");
+		"color:rgb(0,0,0)";
+	input->setStyleSheet(line_set);
 	output->setAlignment(Qt::AlignRight);
 	output->resize(300, 59);
 	output->move(684, 95);
-	output->setStyleSheet(
-		"border-width: 1px;"
-		"border-radius:5px;"
-		"border-style:solid;"
-		"border-color: rgb(240, 255, 255);"
-		"background-color: rgb(240, 255, 255);"
-		"color:rgb(0,0,0)");
+	output->setStyleSheet(line_set);
 	font.setPointSize(29);
 	input->setFont(this->font);
 	font.setPointSize(25);
@@ -62,6 +57,7 @@ void calculator_gui::set_lineedit()
 void calculator_gui::set_button()
 {
 	QPushButton* btn;
+	QShortcut* key;
 	QString btn_set = "QPushButton{border-width: 1px;"
 		"border-radius:6px;"
 		"border-style:solid;"
@@ -227,4 +223,8 @@ void calculator_gui::clr_sc()
 	input->clear();
 	output->clear();
 	error_msg->clear();
+}
+void calculator_gui::叛逆登场()
+{
+	show();
 }
