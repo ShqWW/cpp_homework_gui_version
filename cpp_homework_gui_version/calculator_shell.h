@@ -15,14 +15,18 @@ public:
 	//handle the arithmetical expression
 	void get_expression(string);// get the original expression
 	void inver_expression();//transfer the original expression to postfix expression
+	void output_inver_expression();
 	string cal_outcome();//calculate the posrfix expression
+
 private:
 	string expression;//the original expression
 	string Ans;//last calculated outcome
+	long double ans;
 	deque<string> postfix_expression;//the postfix expression used for calculating
 	deque<string> symbol;//stack:save the number
 	deque<long double> number;//stack:save the number 
 	unordered_map<string, int> symbol_prio;//the piority of the symbol
+	unordered_map<string, long double> const_sym;//the piority of the symbol
 	unordered_map<string, long double(calculator_shell::*)(long double, long double)> cal_list;
 	unordered_map<string, long double(calculator_shell::*)(long double)> fun_list;//call the function accroding to the function name
 	

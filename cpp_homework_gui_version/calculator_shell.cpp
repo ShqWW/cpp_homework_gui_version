@@ -1,5 +1,7 @@
 #include "calculator_shell.h"
 //initialization
+#include<iostream>    //////////////debug           
+using namespace std;//////////////debug
 
 
 calculator_shell::calculator_shell()
@@ -40,6 +42,11 @@ calculator_shell::calculator_shell()
 		{"%",3},
 		{"+",4},
 		{"-",4} };
+	const_sym = {
+		{"e",2.7182818284590452353602874714},
+		{"pi",3.1415926535897932384626433833} ,
+		{"ans",0}
+	};
 		
 	//cout << (this->*fun_list["!"])(5.1-0.1) << endl;//use method
 }
@@ -74,6 +81,7 @@ void calculator_shell::inver_expression()
 				num_adfun.push_back(*expr_index);
 				expr_index++;
 			}
+			dot = 0;
 			expr_index--;
 			postfix_expression.push_back(num_adfun);
 			num_adfun = "";
@@ -84,6 +92,12 @@ void calculator_shell::inver_expression()
 			{
 				num_adfun.push_back(*expr_index);
 				expr_index++;
+			}
+			if (const_sym.find(num_adfun) != const_sym.end())
+			{
+				postfix_expression.push_back(num_adfun);
+				num_adfun = "";
+				continue;
 			}
 			expr_index--;
 			while((!symbol.empty()) && symbol.back() !="(" && symbol_prio["adfun"]>= symbol_prio[symbol.back()])
@@ -143,7 +157,6 @@ void calculator_shell::inver_expression()
 			symbol.pop_back();
 		}
 	}
-	
 }
 string calculator_shell::cal_outcome()
 {
@@ -159,6 +172,10 @@ string calculator_shell::cal_outcome()
 			str2num << s;
 			str2num >> num_curr;
 			number.push_back(num_curr);
+		}
+		else if (const_sym.find(s) != const_sym.end())
+		{
+			number.push_back(const_sym[s]);
 		}
 		else if (fun_list.find(s) != fun_list.end())
 		{
@@ -231,12 +248,26 @@ string calculator_shell::cal_outcome()
 		throw "illegal input";
 	else
 	{
+		ans = num_curr;
+		const_sym["ans"] = ans;
 		stringstream num2str;
 		num2str << num_curr;
 		num2str >> Ans;
 		return Ans;
 	}
 }
+
+void calculator_shell::output_inver_expression()
+{
+	int k = postfix_expression.size();
+	for (int i = 0; i < k; i++)
+	{
+		cout << postfix_expression[i] << " ";
+	}
+	cout << endl;
+}
+//////////////debug
+
 
 void calculator_shell::restart()
 {
