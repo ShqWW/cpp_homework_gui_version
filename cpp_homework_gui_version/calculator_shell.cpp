@@ -99,6 +99,11 @@ void calculator_shell::inver_expression()
 				num_adfun = "";
 				continue;
 			}
+			if (symbol_prio.find(num_adfun) == symbol_prio.end())
+			{
+				string e = "illegal input";
+				throw e;
+			}
 			expr_index--;
 			while((!symbol.empty()) && symbol.back() !="(" && symbol_prio["adfun"]>= symbol_prio[symbol.back()])
 			{ 
