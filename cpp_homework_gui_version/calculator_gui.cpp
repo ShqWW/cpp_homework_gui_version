@@ -81,7 +81,7 @@ void calculator_gui::set_button()
 			btn->move(x + btn_wid * j, y + btn_hei * i);
 			btn->setFont(font);
 			btn->setStyleSheet(btn_set);
-			connect(btn, SIGNAL(clicked()), this, SLOT(get_input()));
+			connect(btn, SIGNAL(clicked()), this, SLOT(btn_input()));
 		}
 	for (int i = 0; i < 4; i++)
 		for (int j = 0; j < 6; j++)
@@ -95,25 +95,25 @@ void calculator_gui::set_button()
 			if (btn->text() == "=")
 			{
 				key = new QShortcut(QKeySequence(Qt::Key_Return), this);
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(get_outcome()));
-				connect(btn, SIGNAL(clicked()), this, SLOT(get_outcome()));
+				QObject::connect(key, SIGNAL(activated()), this, SLOT(disp_outcome()));
+				connect(btn, SIGNAL(clicked()), this, SLOT(disp_outcome()));
 			}
 			else
-				connect(btn, SIGNAL(clicked()), this, SLOT(get_input()));
+				connect(btn, SIGNAL(clicked()), this, SLOT(btn_input()));
 			if(btn->text() != "="&& btn->text() != "del"&&btn->text() != "pi"&& btn->text() != "ans")
 			{ 
 				key = new QShortcut(QKeySequence(btn->text()), this);
 				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(get_input_key()));
+				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
 			}
 			else if (btn->text() == "del")
 			{
 				key = new QShortcut(QKeySequence("Backspace"), this);
 				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(get_input_key()));
+				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
 				key = new QShortcut(QKeySequence("Delete"), this);
 				key->setObjectName(btn->text());
-				QObject::connect(key, SIGNAL(activated()), this, SLOT(get_input_key()));
+				QObject::connect(key, SIGNAL(activated()), this, SLOT(key_input()));
 			}
 		}
 	//confirm->setText(codec->toUnicode("¼ÆËã"));
@@ -123,9 +123,9 @@ void calculator_gui::set_button()
 	btn->resize(140, 90);
 	btn->move(684, 250);
 	btn->setStyleSheet(btn_set);
-	connect(btn, SIGNAL(clicked()), this, SLOT(clear_screen()));
+	connect(btn, SIGNAL(clicked()), this, SLOT(clr_sc()));
 }
-void calculator_gui::get_outcome()
+void calculator_gui::disp_outcome()
 {
 	QString s = input->text();
 	int len = s.size();
@@ -164,7 +164,7 @@ void calculator_gui::get_outcome()
 		}
 	}
 }
-void calculator_gui::get_input()
+void calculator_gui::btn_input()
 {
 	QPushButton* btn = dynamic_cast<QPushButton*>(sender());
 	QString s = btn->text();
@@ -189,7 +189,7 @@ void calculator_gui::get_input()
 		index++;
 	}
 }
-void calculator_gui::get_input_key()
+void calculator_gui::key_input()
 {
 	QShortcut* ky = dynamic_cast<QShortcut*>(sender());
 	QString s = ky->objectName();
@@ -214,7 +214,7 @@ void calculator_gui::get_input_key()
 		index++;
 	}	
 }
-void calculator_gui::clear_screen()
+void calculator_gui::clr_sc()
 {
 	while (!input_str.empty())
 		input_str.pop_back();

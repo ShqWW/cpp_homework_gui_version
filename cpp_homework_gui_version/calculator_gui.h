@@ -48,9 +48,9 @@ private:
 
 
 private slots:
-	void get_outcome();
-	void get_input();
-	void get_input_key();
-	void clear_screen();
+	void disp_outcome();
+	void btn_input();
+	void key_input();
+	void clr_sc();
 };
 
