@@ -21,6 +21,8 @@ private:
 	QLineEdit* output;
 	QFont font;
 	QPushButton* confirm;
+	QLabel* error_msg;
+	QLabel* image;
 	vector<QString> input_str;
 
 	vector<QString> btn_fun_name = {
@@ -47,5 +49,7 @@ private:
 private slots:
 	void get_outcome();
 	void get_input();
+	void get_input_key();
+	void clear_screen();
 };
 

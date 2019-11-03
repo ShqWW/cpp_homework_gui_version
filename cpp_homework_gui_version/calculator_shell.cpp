@@ -271,7 +271,10 @@ string calculator_shell::cal_outcome()
 	num_curr = number.back();
 	number.pop_back();
 	if (!number.empty())
-		throw "illegal input";
+	{
+		string e = "illegal input";
+		throw e;
+	}
 	else
 	{
 		ans = num_curr;
