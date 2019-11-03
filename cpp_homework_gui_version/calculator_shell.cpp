@@ -35,7 +35,22 @@ calculator_shell::calculator_shell()
 		{ "^",&calculator_shell::cal_pow} };
 	symbol_prio = {
 		{"!",0},
-		{"adfun",1} ,
+		{"sqrt",1} ,
+		{"cos",1} ,
+		{"sin",1} ,
+		{"tan",1} ,
+		{"arcsin",1} ,
+		{"arccos",1} ,
+		{"arctan",1} ,
+		{"sinh",1} ,
+		{"cosh",1} ,
+		{"tanh",1} ,
+		{"arcsinh",1} ,
+		{"arccosh",1} ,
+		{"arctanh",1} ,
+		{"lg",1} ,
+		{"ln",1} ,
+		{"abs",1} ,
 		{"^",2},
 		{"*",3},
 		{"/",3},
@@ -101,7 +116,7 @@ void calculator_shell::inver_expression()
 				num_adfun = "";
 				is_num = 1;
 				continue;
-			}
+			}//////////’“ pi e ∫Õans
 			if (fun_list.find(num_adfun) == fun_list.end())
 			{
 				cout << num_adfun << endl;
@@ -109,7 +124,7 @@ void calculator_shell::inver_expression()
 				throw e;
 			}
 			expr_index--;
-			while ((!symbol.empty()) && symbol.back() != "(" && symbol_prio["adfun"] >= symbol_prio[symbol.back()])
+			while ((!symbol.empty()) && symbol.back() != "(" && symbol_prio[num_adfun] >= symbol_prio[symbol.back()])
 			{
 				postfix_expression.push_back(symbol.back());
 				symbol.pop_back();
@@ -159,7 +174,10 @@ void calculator_shell::inver_expression()
 				}
 			}
 			symbol.push_back(curr_symbol);
-			is_num = 0;
+			if (curr_symbol != "!" && curr_symbol != "%")
+			{
+				is_num = 0;
+			}
 		}
 		expr_index++;
 	}
