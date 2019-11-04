@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/calculator_gui">
-        <file>Calculator.ico</file>
+        <file>Resources/Calculator.ico</file>
     </qresource>
 </RCC>

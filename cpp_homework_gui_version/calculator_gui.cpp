@@ -1,19 +1,18 @@
-#include "calculator_gui.h"
+ï»¿#include "calculator_gui.h"
 
 calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 {
 	//setMaximumSize(16777215,16777215);
 	setMaximumSize(1000, 630);
 	setMinimumSize(1000, 630);
-	QTextCodec* codec = QTextCodec::codecForName("GBK");//ÖÐÎÄ×ÖÌå¹ÜÀí
-	setWindowTitle(codec->toUnicode("ÅÑÄæÐÍ¿ÆÑ§¼ÆËãÆ÷"));
-	setWindowIcon(QIcon("./Calculator.ico"));
+	setWindowTitle(codec->toUnicode("ç§‘å­¦è®¡ç®—å™¨"));
+	setWindowIcon(QIcon("./Resources/Calculator.ico"));
 	setStyleSheet("background-color: rgb(30, 30, 30)");
 	font.setFamily("Comic Sans MS");
 	set_lineedit();
 	set_button();
 	QLabel* image = new QLabel(this);
-	QString path = QString("./cal.png");
+	QString path = QString("./Resources/cal.png");
 	QImage im;
 	im.load(path);
 	QPixmap px = QPixmap::fromImage(im);
@@ -30,6 +29,7 @@ void calculator_gui::set_lineedit()
 	error_msg->resize(300, 60);
 	font.setPointSize(12);
 	error_msg->setFont(this->font);
+	error_msg->setText("     (^OvO^)  @by Shq Wang");
 	error_msg->setStyleSheet("color:rgb(232, 232, 232)");
 	input = new QLineEdit(this);
 	output = new QLineEdit(this);
@@ -105,7 +105,7 @@ void calculator_gui::set_button()
 				connect(key, SIGNAL(activated()), this, SLOT(key_input()));
 			}
 		}
-	//confirm->setText(codec->toUnicode("¼ÆËã"));
+	//confirm->setText(codec->toUnicode("è®¡ç®—"));
 	btn = new QPushButton(this);
 	btn->setFont(font);
 	btn->setText("AC");
@@ -158,7 +158,7 @@ void calculator_gui::disp_outcome()
 			get_expression(s.toStdString());
 			inver_expression();
 			s = QString::fromStdString(cal_outcome());
-			error_msg->clear();
+			error_msg->setText("     (^OvO^)  @by Shq Wang");
 			output->setText(s);
 		}
 		catch (string error)
@@ -222,9 +222,9 @@ void calculator_gui::clr_sc()
 		input_str.pop_back();
 	input->clear();
 	output->clear();
-	error_msg->clear();
+	error_msg->setText("     (^OvO^)  @by Shq Wang");
 }
-void calculator_gui::ÅÑÄæµÇ³¡()
+void calculator_gui::jump_out()
 {
 	show();
 }
