@@ -3,8 +3,8 @@
 calculator_gui::calculator_gui(QWidget* parent) :QWidget(parent)
 {
 	//setMaximumSize(16777215,16777215);
-	setMaximumSize(1000, 630);
-	setMinimumSize(1000, 630);
+	setMaximumSize(1020, 630);
+	setMinimumSize(1020, 630);
 	setWindowTitle(codec->toUnicode("科学计算器"));
 	setWindowIcon(QIcon("./Resources/Calculator.ico"));
 	setStyleSheet("background-color: rgb(30, 30, 30)");
