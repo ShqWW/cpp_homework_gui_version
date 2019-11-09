@@ -157,9 +157,10 @@ void calculator_gui::disp_outcome()
 		{
 			get_expression(s.toStdString());
 			inver_expression();
-			s = QString::fromStdString(cal_outcome());
+			input->setText(s);
+			QString outcome = QString::fromStdString(cal_outcome());
 			error_msg->setText("     (^OvO^)  @by Shq Wang");
-			output->setText(s);
+			output->setText(outcome);
 		}
 		catch (string error)
 		{

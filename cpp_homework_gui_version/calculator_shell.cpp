@@ -32,6 +32,7 @@ calculator_shell::calculator_shell()
 		{ "^",&calculator_shell::cal_pow} };
 	symbol_prio = {
 		{"!",0},
+		{"%",0},
 		{"sqrt",1} ,
 		{"cos",1} ,
 		{"sin",1} ,
@@ -51,7 +52,6 @@ calculator_shell::calculator_shell()
 		{"^",2},
 		{"*",3},
 		{"/",3},
-		{"%",3},
 		{"+",4},
 		{"-",4} };
 	const_sym = {
@@ -438,9 +438,9 @@ long double calculator_shell::cal_factor(long double input)
 {
 	long max = input;
 	long double answer = 1;
-	if (max == 0)
+	if (answer == 0)
 		return 1;
-	if ((input - max) != 0 || max < 0)
+	if ((input - max) != 0 || (answer < 1&&answer!=0))
 	{
 		string e = "invalid input for funtion factor";
 		throw e;
