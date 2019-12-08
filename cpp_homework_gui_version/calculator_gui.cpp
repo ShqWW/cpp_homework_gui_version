@@ -29,7 +29,7 @@ void calculator_gui::set_lineedit()
 	error_msg->resize(300, 60);
 	font.setPointSize(12);
 	error_msg->setFont(this->font);
-	error_msg->setText("     (^OvO^)  @by Shq Wang");
+	error_msg->setText("         (^OvO^)   ");
 	error_msg->setStyleSheet("color:rgb(232, 232, 232)");
 	input = new QLineEdit(this);
 	output = new QLineEdit(this);
@@ -159,7 +159,7 @@ void calculator_gui::disp_outcome()
 			inver_expression();
 			input->setText(s);
 			QString outcome = QString::fromStdString(cal_outcome());
-			error_msg->setText("     (^OvO^)  @by Shq Wang");
+			error_msg->setText("         (^OvO^)   ");
 			output->setText(outcome);
 		}
 		catch (string error)

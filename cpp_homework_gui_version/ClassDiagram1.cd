@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="calculator_shell">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IIKIALgAQEAIQCAAAAAAQIAGCBQSBUIAAABCEApAAAA=</HashCode>
+      <FileName>calculator_shell.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="calculator_gui">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAIAAAAAAIAACAEAIAACAAIACQAAIBAAAAAAAAAAAAA=</HashCode>
+      <FileName>calculator_gui.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

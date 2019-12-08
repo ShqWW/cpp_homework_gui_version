@@ -69,4 +69,8 @@
     <Image Include="Resources\Calculator.ico" />
     <Image Include="resources\icon3.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
 </Project>
